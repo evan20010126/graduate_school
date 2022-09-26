@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>修改資訊</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 微軟正黑體;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">資料庫系統</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">導覽按鈕</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="query.html">查詢資訊</a></li>
+                    <li class="active"><a href="edit.html">修改資訊</a></li>
+                </ul>
+
+                <form class="navbar-form navbar-right">
+                    <div class="form-group has-feedback">
+                        <input type="search" class="form-control" placeholder="search"><span class="glyphicon-search form-control-feedback"></span>
+                    </div>
+                    <button type="submit" class="btn btn-default">搜尋</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--頁首-->
+    <header>
+        <div class="container">
+            <h1>修改資訊</h1>
+            <p class="lead">Clerk can edit something with this web.</p>
+            <hr>
+        </div>
+    </header>
+    <!--內容區-->
+    <div class="container">
+        <div class="row">
+            <article>
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">書籍</a></li>
+                        <li><a href="#tab2" data-toggle="tab">買家</a></li>
+                        <li><a href="#tab3" data-toggle="tab">訂單</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1>書籍</h1>
+                                    <br>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="height:250px;overflow:auto;">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">BookID</th>
+                                                    <th scope="col">BookName</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Classification</th>
+                                                    <th scope="col">StoreNumber</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Summary">
+                                                <!-- <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <form>
+                                        <!-- <h4>欲查詢書籍種類：<input type="text"></h4>
+									<button class="btn btn-warning" style="float: right;">搜尋 Search</button> -->
+                                    </form>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="panel panel-warning">
+                                        <h3 style="color: navy;"><b>新增</b></h3>
+                                        BookName: <input type="text" id="new_book_a"><br><br> Price: <input type="text" id="new_book_b"><br><br> Classification: <input type="text" id="new_book_c"><br><br> StoreNumber: <input type="text" id="new_book_d"><br><br>
+                                        <button class="btn btn-primary" type="button" id="new_book_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-success">
+                                        <h3 style="color: red;"><b>刪除</b></h3>
+                                        BookName (假設BookName不會重複): <input type="text" id="delete_book_a"><br><br>
+                                        <button class="btn btn-danger" type="button" id="delete_book_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-danger">
+                                        <h3 style="color:saddlebrown;"><b>修改</b></h3>
+                                        欲修改的BookName: <input type="text" id="edit_book_a"><br><br> 其中的Attribute: <input type="text" id="edit_book_b"><br><br> 更改後的Value: <input type="text" id="edit_book_c"><br><br>
+                                        <button class="btn btn-warning" type="button" id="edit_book_btn">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1>買家</h1>
+                                    <br>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="height:250px;overflow:auto;">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Buyer ID</th>
+                                                    <th scope="col">Buyer Name</th>
+                                                    <th scope="col">Buyer Phone</th>
+                                                    <th scope="col">Buyer Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Summary_buyer">
+                                                <!-- <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
+                                                </tr>
+                                                <tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <form>
+                                        <!-- <h4>欲查詢書籍種類：<input type="text"></h4>
+									<button class="btn btn-warning" style="float: right;">搜尋 Search</button> -->
+                                    </form>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="panel panel-warning">
+                                        <h3 style="color: navy;"><b>新增</b></h3>
+                                        Buyer Name: <input type="text" id="new_buyer_a"><br><br> Buyer Phone: <input type="text" id="new_buyer_b"><br><br> Buyer Address: <input type="text" id="new_buyer_c"><br><br>
+                                        <button class="btn btn-primary" type="button" id="new_buyer_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-success">
+                                        <h3 style="color: red;"><b>刪除</b></h3>
+                                        Buyer ID: <input type="text" id="delete_buyer_a"><br><br>
+                                        <button class="btn btn-danger" type="button" id="delete_buyer_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-danger">
+                                        <h3 style="color:saddlebrown;"><b>修改</b></h3>
+                                        欲修改的BuyerID: <input type="text" id="edit_buyer_a"><br><br> 其中的Attribute: <input type="text" id="edit_buyer_b"><br><br> 更改後的Value: <input type="text" id="edit_buyer_c"><br><br>
+                                        <button class="btn btn-warning" type="button" id="edit_buyer_btn">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1>訂單</h1>
+                                    <br>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="height:250px;overflow:auto;">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">DealID</th>
+                                                    <th scope="col">BookID</th>
+                                                    <th scope="col">BuyerID</th>
+                                                    <th scope="col">DealAmount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Summary_deal">
+                                                <!-- <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
+                                                </tr>
+                                                <tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <form>
+                                        <!-- <h4>欲查詢書籍種類：<input type="text"></h4>
+									<button class="btn btn-warning" style="float: right;">搜尋 Search</button> -->
+                                    </form>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="panel panel-warning">
+                                        <h3 style="color: navy;"><b>新增</b></h3>
+                                        BookID: <input type="text" id="new_deal_a"><br><br> Buyer ID: <input type="text" id="new_deal_b"><br><br> Deal Amount: <input type="text" id="new_deal_c"><br><br>
+                                        <button class="btn btn-primary" type="button" id="new_deal_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-success">
+                                        <h3 style="color: red;"><b>刪除</b></h3>
+                                        Deal ID: <input type="text" id="delete_deal_a"><br><br>
+                                        <button class="btn btn-danger" type="button" id="delete_deal_btn">Submit</button>
+                                    </div>
+                                    <div class="panel panel-danger">
+                                        <h3 style="color:saddlebrown;"><b>修改</b></h3>
+                                        欲修改的Deal ID: <input type="text" id="edit_deal_a"><br><br> 其中的Attribute: <input type="text" id="edit_deal_b"><br><br> 更改後的Value: <input type="text" id="edit_deal_c"><br><br>
+                                        <button class="btn btn-warning" type="button" id="edit_deal_btn">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+            </div>
+        </div>
+        <hr>
+
+
+
+        <!--頁尾-->
+        <footer>
+            <div class="container">
+                <p>♂海洋大學3A&middot;♀ 作者: 吳秉宸.吳翊楷.謝翔宇</p>
+                <p style="text-align:right"><a href="#">T O P</a></p>
+            </div>
+        </footer>
+        <script>
+            /*php_connect*/
+            function php_connect(php_name, func) {
+                const xmlhttp = new XMLHttpRequest();
+                xmlhttp.onload = function() {
+                    func(xmlhttp);
+                };
+                xmlhttp.open("GET", php_name);
+                xmlhttp.send();
+            }
+
+            function show_all_books_php_do(xmlhttp) {
+                var arr = JSON.parse(xmlhttp.responseText);
+                document.getElementById("Summary").innerHTML = "";
+                var html = "";
+                for (var i = 0; i < arr.length; i++) {
+                    html += "<tr>\n";
+                    html += "<th>" + arr[i][0] + "</th>\n";
+                    for (var j = 1; j < Object.keys(arr[i]).length; j++) {
+                        if (arr[i][j] == undefined) break;
+                        html += "<td>" + arr[i][j] + "</td>\n";
+                    }
+                    html += "</tr>\n"
+                }
+                document.getElementById("Summary").innerHTML = html;
+            }
+
+            function show_all_books() {
+                php_connect("PHP/display_all_books.php", show_all_books_php_do);
+            }
+            /*-----------------------------------*/
+            function show_all_deal_php_do(xmlhttp) {
+                var arr = JSON.parse(xmlhttp.responseText);
+                document.getElementById("Summary_deal").innerHTML = "";
+                var html = "";
+                for (var i = 0; i < arr.length; i++) {
+                    html += "<tr>\n";
+                    html += "<th>" + arr[i][0] + "</th>\n";
+                    for (var j = 1; j < Object.keys(arr[i]).length; j++) {
+                        if (arr[i][j] == undefined) break;
+                        html += "<td>" + arr[i][j] + "</td>\n";
+                    }
+                    html += "</tr>\n"
+                }
+                document.getElementById("Summary_deal").innerHTML = html;
+            }
+
+            function show_all_deals() {
+                php_connect("PHP/display_all_deal.php", show_all_deal_php_do);
+            }
+            /*----------------------------*/
+            function show_all_buyer_php_do(xmlhttp) {
+                var arr = JSON.parse(xmlhttp.responseText);
+                document.getElementById("Summary_buyer").innerHTML = "";
+                var html = "";
+                for (var i = 0; i < arr.length; i++) {
+                    html += "<tr>\n";
+                    html += "<th>" + arr[i][0] + "</th>\n";
+                    for (var j = 1; j < Object.keys(arr[i]).length; j++) {
+                        if (arr[i][j] == undefined) break;
+                        html += "<td>" + arr[i][j] + "</td>\n";
+                    }
+                    html += "</tr>\n"
+                }
+                document.getElementById("Summary_buyer").innerHTML = html;
+            }
+
+            function show_all_buyer() {
+                php_connect("PHP/display_all_buyer.php", show_all_buyer_php_do);
+            }
+
+            //for_book
+            /*----------------------------*/
+            function new_book_php_do(xmlhttp) {
+                alert("Add book sucess!");
+            }
+
+            function new_book() {
+                var a = document.getElementById("new_book_a").value;
+                var b = document.getElementById("new_book_b").value;
+                var c = document.getElementById("new_book_c").value;
+                var d = document.getElementById("new_book_d").value;
+                php_connect("PHP/add_new_book.php?a=" + a + "&b=" + b + "&c=" + c + "&d=" + d, new_book_php_do);
+                setTimeout(function() {
+                    show_all_books();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function delete_book_php_do(xmlhttp) {
+                alert("Delete book sucess!");
+            }
+
+            function delete_book() {
+                var a = document.getElementById("delete_book_a").value;
+                php_connect("PHP/delete_book.php?a=" + a, delete_book_php_do);
+                setTimeout(function() {
+                    show_all_books();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function edit_book_php_do(xmlhttp) {
+                alert("Edit book sucess!");
+            }
+
+            function edit_book() {
+                var a = document.getElementById("edit_book_a").value;
+                var b = document.getElementById("edit_book_b").value;
+                var c = document.getElementById("edit_book_c").value;
+                php_connect("PHP/edit_book_information.php?a=" + a + "&b=" + b + "&c=" + c, edit_book_php_do);
+                setTimeout(function() {
+                    show_all_books();
+                }, 3000);
+            }
+
+            //for_buyer
+            /*----------------------------*/
+            function new_buyer_php_do(xmlhttp) {
+                alert("New buyer sucess!");
+            }
+
+            function new_buyer() {
+                var a = document.getElementById("new_buyer_a").value;
+                var b = document.getElementById("new_buyer_b").value;
+                var c = document.getElementById("new_buyer_c").value;
+                php_connect("PHP/add_new_buyer.php?a=" + a + "&b=" + b + "&c=" + c, new_buyer_php_do);
+                setTimeout(function() {
+                    show_all_buyer();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function delete_buyer_php_do(xmlhttp) {
+                alert("Delete buyer sucess!");
+            }
+
+            function delete_buyer() {
+                var a = document.getElementById("delete_buyer_a").value;
+                php_connect("PHP/delete_buyer.php?a=" + a, delete_buyer_php_do);
+                setTimeout(function() {
+                    show_all_buyer();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function edit_buyer_php_do(xmlhttp) {
+                alert("Edit buyer sucess!");
+            }
+
+            function edit_buyer() {
+                var a = document.getElementById("edit_buyer_a").value;
+                var b = document.getElementById("edit_buyer_b").value;
+                var c = document.getElementById("edit_buyer_c").value;
+                php_connect("PHP/edit_buyer_information.php?a=" + a + "&b=" + b + "&c=" + c, edit_buyer_php_do);
+                setTimeout(function() {
+                    show_all_buyer();
+                }, 3000);
+            }
+
+            //for_deal
+            /*----------------------------*/
+            function new_deal_php_do(xmlhttp) {
+                var message = xmlhttp.responseText;
+                if (message == "1") {
+                    alert("Add deal sucess!");
+                } else {
+                    alert(message);
+                }
+            }
+
+            function new_deal() {
+                var a = document.getElementById("new_deal_a").value;
+                var b = document.getElementById("new_deal_b").value;
+                var c = document.getElementById("new_deal_c").value;
+                php_connect("PHP/add_new_deal.php?a=" + a + "&b=" + b + "&c=" + c, new_deal_php_do);
+                setTimeout(function() {
+                    show_all_deals();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function delete_deal_php_do(xmlhttp) {
+                alert("Delete deal sucess!");
+            }
+
+            function delete_deal() {
+                var a = document.getElementById("delete_deal_a").value;
+                php_connect("PHP/delete_deal.php?a=" + a, delete_deal_php_do);
+                setTimeout(function() {
+                    show_all_deals();
+                }, 3000);
+            }
+            /*----------------------------*/
+            function edit_deal_php_do(xmlhttp) {
+                alert("Edit deal sucess!");
+            }
+
+            function edit_deal() {
+                var a = document.getElementById("edit_deal_a").value;
+                var b = document.getElementById("edit_deal_b").value;
+                var c = document.getElementById("edit_deal_c").value;
+                php_connect("PHP/edit_deal_information.php?a=" + a + "&b=" + b + "&c=" + c, edit_deal_php_do);
+                setTimeout(function() {
+                    show_all_deals();
+                }, 3000);
+            }
+
+
+            function init() {
+                document.getElementById("new_book_btn").onclick = new_book;
+                document.getElementById("delete_book_btn").onclick = delete_book;
+                document.getElementById("edit_book_btn").onclick = edit_book;
+
+                document.getElementById("new_buyer_btn").onclick = new_buyer;
+                document.getElementById("delete_buyer_btn").onclick = delete_buyer;
+                document.getElementById("edit_buyer_btn").onclick = edit_buyer;
+
+                document.getElementById("new_deal_btn").onclick = new_deal;
+                document.getElementById("delete_deal_btn").onclick = delete_deal;
+                document.getElementById("edit_deal_btn").onclick = edit_deal;
+                show_all_books();
+                show_all_buyer();
+                show_all_deals();
+            }
+            window.onload = init;
+        </script>
+</body>
+
+</html>
