@@ -217,7 +217,7 @@ for line in lines:
         if t[2][0] == 'C':
             LOCCTR = LOCCTR + (len(t[2]) - 3)
         if t[2][0] == 'X':
-            # 老師這邊有寫錯，老師這邊寫'/'而不是'//'整除，LOCCTR應為整數
+            # 這邊寫'/'而不是'//'整除，LOCCTR應為整數
             LOCCTR = LOCCTR + ((len(t[2]) - 3)//2)
     elif t[1] == "BASE":
         pass
